@@ -1,0 +1,28 @@
+[00:48:57] loaded 1400 documents, 225 queries, 1612 judgements
+[00:48:57] split: 113 development / 112 held-out queries
+[00:48:57] experiment 1: preprocessing ablation
+[00:48:58]     baseline (naive everything)      |V|=  8474  nDCG@10=0.3378
+[00:48:58]     + Punkt segmentation             |V|=  8474  nDCG@10=0.3378  p=1.000
+[00:48:59]     + Treebank tokenisation          |V|=  8299  nDCG@10=0.3343  p=0.540
+[00:49:00]     + Porter stemming                |V|=  5672  nDCG@10=0.3545  p=0.295
+[00:49:02]     + WordNet lemmatisation          |V|=  6481  nDCG@10=0.3383  p=0.966
+[00:49:03]     stem + NLTK stopwords            |V|=  5566  nDCG@10=0.3605  p=0.166
+[00:49:04]     stem + top-50 frequency stops    |V|=  5636  nDCG@10=0.3390  p=0.939
+[00:49:04] experiment 2: hyperparameter search (development queries only)
+[00:49:05]     LSA  k=  50  dev nDCG@10=0.3411
+[00:49:05]     LSA  k= 100  dev nDCG@10=0.3690
+[00:49:05]     LSA  k= 150  dev nDCG@10=0.3901
+[00:49:06]     LSA  k= 200  dev nDCG@10=0.3800
+[00:49:07]     LSA  k= 250  dev nDCG@10=0.3723
+[00:49:08]     LSA  k= 300  dev nDCG@10=0.3520
+[00:49:09]     LSA  k= 400  dev nDCG@10=0.3443
+[00:49:12]     LSA  k= 500  dev nDCG@10=0.3339
+[00:49:16]     LSA  k= 800  dev nDCG@10=0.3051
+[00:49:17]     BM25 best k1=1.5 b=0.5  dev nDCG@10=0.3668
+[00:49:17] experiment 3: model comparison (held-out queries)
+[00:49:18]     tfidf        nDCG@10=0.3570  MAP=0.2771  0.6 ms/query
+[00:49:18]     bm25         nDCG@10=0.3649  MAP=0.2884  0.6 ms/query
+[00:49:18]     lsa          nDCG@10=0.3816  MAP=0.3130  0.9 ms/query
+[00:49:18]     bm25+prf     nDCG@10=0.3578  MAP=0.2988  2.0 ms/query
+[00:49:18] experiment 4: failure analysis
+[00:49:19] wrote /Users/suharshkumar/Documents/claude/ddp_summer_dummy/cranfield-search-engine/results/results.json and 3 figures
