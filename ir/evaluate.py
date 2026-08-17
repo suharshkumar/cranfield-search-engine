@@ -1,10 +1,10 @@
-"""Evaluation: the metrics, and the statistics needed to believe them.
+"""Metrics, plus the statistics needed to believe them.
 
-The metrics are the standard Cranfield-paradigm set (precision, recall,
-F-measure, MAP, nDCG).  The statistics are the part that is usually skipped:
-a table of means with no variance estimate cannot tell you whether model A
-beating model B by 0.01 nDCG means anything.  With 225 queries it usually
-does not, so :func:`paired_bootstrap` reports a p-value for every comparison.
+The metrics are the standard set: precision, recall, F-measure, MAP, nDCG. The
+statistics are the part usually left out. A table of means with no variance
+estimate can't tell you whether A beating B by 0.01 nDCG means anything, and
+with 225 queries it usually doesn't, so paired_bootstrap puts a p-value on
+every comparison.
 """
 
 from __future__ import annotations

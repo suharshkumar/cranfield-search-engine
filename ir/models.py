@@ -1,14 +1,12 @@
-"""Retrieval models.  Each one ranks the whole collection for a query.
+"""Retrieval models. Each ranks the whole collection for a query.
 
-Four models, in the order the course develops them:
-
-    VectorSpaceModel   cosine similarity over TF-IDF vectors
-    BM25               probabilistic scoring with length normalisation
+    VectorSpaceModel     cosine similarity over TF-IDF vectors
+    BM25                 probabilistic scoring with length normalisation
     LatentSemanticModel  cosine in a truncated-SVD concept space
-    RocchioFeedback    pseudo-relevance feedback wrapped around any of the above
+    RocchioFeedback      pseudo-relevance feedback around any of the above
 
-They share one interface -- ``search(query, k)`` -> ranked ``(doc_id, score)``
-pairs -- so the evaluation harness treats them interchangeably.
+All four share one interface, search(query, k) -> ranked (doc_id, score) pairs,
+so the evaluation harness can treat them interchangeably.
 """
 
 from __future__ import annotations

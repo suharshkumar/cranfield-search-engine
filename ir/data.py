@@ -1,33 +1,28 @@
-"""Loading the Cranfield 1400 test collection.
+"""Loading the Cranfield 1400 collection.
 
-The collection ships as three files in a 1960s-era tagged format:
+Three files, in a 1960s tagged format:
 
     cran.all.1400   1400 aerodynamics abstracts   (.I .T .A .B .W)
     cran.qry         225 information needs        (.I .W)
-    cranqrel        1836 relevance judgements     (qid docid grade)
+    cranqrel        1837 relevance judgements     (qid docid grade)
 
-Three details in here are easy to get wrong and each one silently corrupts
-every score downstream.  They are handled explicitly and each is covered by a
-test in ``tests/test_data.py``.
+Three gotchas here, all of which quietly wreck your scores rather than throwing
+anything. Tests for each in tests/test_data.py.
 
-1.  **The query ids in ``cran.qry`` are not the query ids in ``cranqrel``.**
-    ``cran.qry`` carries ``.I`` values that run 001, 002, 004, ... up to 365
-    with gaps, while ``cranqrel`` numbers the same queries sequentially 1..225.
-    Joining on the ``.I`` value looks like it works -- the two agree for the
-    first two queries -- and then quietly mis-pairs every judgement after that.
-    We key queries by their *ordinal position* and keep the printed ``.I`` only
-    as a label.
+1. The query ids in cran.qry are not the query ids in cranqrel. cran.qry's .I
+   values run 001, 002, 004 ... 365 with gaps; cranqrel numbers the same
+   queries 1..225 in order. They agree for the first two queries, so joining on
+   .I looks fine and then mispairs everything after. Key queries by position
+   and keep .I as a label only.
 
-2.  **Cranfield relevance grades are inverted.**  Cleverdon's scale runs
-    1 = "a complete answer to the question" down to 4 = "minimum interest".
-    Feeding the raw grade to nDCG as a gain rewards the worst documents most.
-    :meth:`Qrels.gain` maps grade g to 5 - g, so 1 -> 4 ... 4 -> 1.
+2. The grades are inverted. Cleverdon's scale is 1 = "complete answer" down to
+   4 = "minimum interest", so passing the raw grade to nDCG as a gain rewards
+   the worst documents most. Qrels.gain maps g to 5 - g.
 
-3.  **A spurious ``-1`` judgement.**  Every one of the 225 queries carries
-    exactly one row with grade -1 -- 225 of the file's 1837 rows, 12% of it,
-    spread over 128 distinct documents.  ``-1`` is outside Cleverdon's 1-4
-    scale and is not a relevance grade, so those rows are dropped; keeping
-    them would add a phantom relevant document to every single query.
+3. Every query has exactly one row with grade -1: 225 of the 1837 rows, over
+   128 different documents. It's outside the 1-4 scale and isn't a relevance
+   grade, so drop those rows. Keep them and every query gains a phantom
+   relevant document.
 """
 
 from __future__ import annotations

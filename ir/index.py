@@ -1,12 +1,11 @@
-"""The inverted index -- the data structure the whole engine is built on.
+"""The inverted index.
 
-An inverted index maps each term to the postings list of documents containing
-it.  Everything downstream (TF-IDF, BM25, LSA) is a different way of scoring
-the same postings, so all three models take an :class:`InvertedIndex` and none
-of them re-reads the corpus.
+Maps each term to the postings list of documents containing it. TF-IDF, BM25
+and LSA are all just different ways of scoring the same postings, so all three
+take an InvertedIndex and none of them re-reads the corpus.
 
-The index also exposes the collection as a sparse term-document matrix, since
-LSA needs the matrix form and building it from the postings is free.
+It also exposes the collection as a sparse term-document matrix, because LSA
+needs the matrix form and building it from the postings costs nothing.
 """
 
 from __future__ import annotations

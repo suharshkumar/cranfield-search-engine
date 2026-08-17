@@ -1,9 +1,8 @@
-"""The preprocessing pipeline: raw text in, list of terms out.
+"""Preprocessing: raw text in, index terms out.
 
-Every stage here has a naive implementation and a linguistically informed one,
-selectable at run time, because the point of the exercise is to *measure*
-whether the sophisticated version actually buys retrieval quality rather than
-to assume it does.  (On Cranfield, one of them does not -- see the README.)
+Each stage has a naive version and a linguistically smarter one, switchable at
+run time, so the ablation in experiments/run_all.py can measure whether the
+smarter one actually helps. Two of them turn out not to.
 
     segment   sentences   regex on [.!?]        vs  NLTK Punkt
     tokenise  words       regex on \\w+          vs  Penn Treebank tokeniser
